@@ -23,8 +23,8 @@ Within each species directory there are the following files and sub directories:
 #### makeAlignments.py
 
 This script is used to concatenate the alignments for each gene over each individual genome and one-hot encode them.  The script will also remove all redundant columns (columns with no variance or are all the same value) in the alignment.  The script takes 3-4 arguments:
-1. Alignment fasta directory: the alignment directory of raw fasta files used to build one-hot alignments for (per genome).
-2. Alignment out: the output file containing the one-hot alignment per genome.
+1. Alignment fasta directory: the alignment directory of raw fasta files used to build one-hot alignments for (ex *Staphylococcus/Stf.raw.alis/*).
+2. Alignment out: the output file containing one one-hot-encoded alignment per genome.
 3. Alignment index out: Order list containing the order of the features in the feature array.  It contains PLF and alignment index value for the given PLF.  
 4. File suffix: (*optional*) suffix of the files in the *Alignment fasta directory*.
 
@@ -32,7 +32,7 @@ This script is used to concatenate the alignments for each gene over each indivi
 
 This script takes 4-5 inputs:
 1. AMR Metadata tabular file: AMR metadata tabular file.  
-2. One-hot alignment file: Files created by *../Alignments/makeAlignments.py* script.
+2. One-hot alignment file: File (*alignment out, argument 2*) created by *../Alignments/makeAlignments.py* script.
 3. Output matrix file: File name to output the matrix to.
 4. Output feature order file: File name to output the feature order to.  The last features are the antibiotics.  
 5. Folds: (optional, default=10) specify the number of folds to create.  The script makes sure that antibiotic-label combinations are almost equal in every fold created.  
