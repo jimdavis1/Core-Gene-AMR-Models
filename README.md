@@ -5,7 +5,7 @@ This GitHub repo is designed to aid in the reproducability of the following pape
 
 This repo  contains the data that were used to build the alignments of 100 concatenated conserved genes, and the matrix files that were derived from them. K-mer-based data are not provided due to size limitations. 
 
-This directory contains four subdirectories, one for each species that was studied, and a directory with python scripts for generating the matrix file.
+This directory contains four subdirectories, one for each species that was studied, and a directory with python scripts for generating the one-hot-encoded alginment and matrix files.
 
 Within each species directory there are the following files and sub directories:
 
@@ -17,7 +17,7 @@ Within each species directory there are the following files and sub directories:
 
 
 **Scripts**
-- `makeAlignments.py` : This script is used to one hot encode raw alignments and remove redundant columns (columns with 0 variance).  It reads through the raw alignment directory.
+- `makeAlignments.py` : This script is used to one hot encode the raw fasta alignments and remove redundant columns (columns with 0 variance).  It reads through the raw alignment directory.
 - `makeMatrix.py` :  This script builds the matrix
 
 #### makeAlignments.py
