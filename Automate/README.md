@@ -47,3 +47,20 @@ The script starts by checking for the output directory and clearing it out befor
 
 For each species, the script will run the *makeAlignments.py* script located in the *../Scripts/* directory and then use that as input into the *buildModel.py* script in the *../GenomicModelCreator/* directory.  
 
+## Script Output
+
+Inside the output directory of the script there will be a some directories.  One directory per species that was run as well as a temporary directory that is reused with each model.  Within each species' directory will be the following:
+- ali.ord : alignment order of the alignment tabular file by the index within the alignment.  
+- ali.tab : tabular layout for the one hot alignments.  First column is the genome ID and the second column is the one hot alignment for that genome.
+- model_ali : directory containing the trained model and any pieces of the model metadata.  
+
+The *model_ali* directory will contain the following:
+- all : directory containing the 5 of 10 folds run.  Each fold contains a *.pred*, *.train_hist.txt*, *.true*, *.tree*, and *pkl* file representing the predicted labels for the test set, training history (merror for train, validation, and test), true values for the testing set, text representation of the tree ensemble, and the model itself in pkl format.  Additionally, statistic files of metrics also are included *confusion_matrix.tab*, *f1.tab*, *raw_acc.tab*, and *VMEME.tab*.  *model.params* is included for the XGBoost parameters used in the model.
+- model.attrOrder : attribute order for the features of the model.
+- model.genomes.list : list of genomes used to train the model.
+- model.labels.map : label mapping
+- model.params : parameters sent to model script
+- temp.txt : temprary file (used for debugging)
+- weights.list : list of weights (used for debugging)
+
+
