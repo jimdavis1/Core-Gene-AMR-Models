@@ -35,9 +35,11 @@ There are some memory requirements to run these models as well.
 |*Klebsiella*    |64 GB |
 |*Mycobacterium* |128 GB|
 |*Salmonella*    |128 GB|
-|*Staphylococcus*|32 GB |
+|*Staphylococcus*|64 GB |
 
 In the event you run into an *out of memory* error of any sort, it's likely that the machine being used lacks the RAM to run the model.  
+
+Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialize and writable or the script may fail to run!  
 
 ## Scripts
 

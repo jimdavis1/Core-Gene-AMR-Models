@@ -35,7 +35,7 @@ These XGBoost models for alignments still require lots of RAM despite only utili
 |*Klebsiella*    |64 GB |
 |*Mycobacterium* |128 GB|
 |*Salmonella*    |128 GB|
-|*Staphylococcus*|32 GB |
+|*Staphylococcus*|64 GB |
 
 These are very loose minimum requirements.  In the event you run into an *out of memory* error, it normally means you didn't have enough RAM.  
 
