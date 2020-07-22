@@ -1,6 +1,6 @@
 # Core-Gene-AMR-Models
 
-This repo contains all the necessary scripts to build alignment-based models for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  The repot itself contains an external github repo as a submodule which needs to be initiated and updated after this github repo is cloned.  So the initialization of this repo can be done as follows.
+This repo contains all the necessary scripts to build alignment-based models for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  The repo itself contains an external github repo as a submodule which needs to be initiated and updated after this github repo is cloned.  So the initialization of this repo can be done as follows.
 
 ```bash
 git clone https://github.com/jimdavis1/Core-Gene-AMR-Models
