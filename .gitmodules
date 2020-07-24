@@ -1,3 +1,6 @@
 [submodule "GenomicModelCreator"]
 	path = GenomicModelCreator
 	url = https://github.com/Tinyman392/GenomicModelCreator
+[submodule "Subtree-Analysis"]
+	path = Subtree-Analysis
+	url = https://github.com/jimdavis1/Subtree-Analysis
