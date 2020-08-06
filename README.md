@@ -80,6 +80,19 @@ This submodule is a repository designed as tool to allow users to train machine 
 - -u --cluster_weight : Specify whether to weight each cluster by a cluster weight.  0 = no cluster weight, 1 = weight by size, 2 = weight by SIR cluster dist, 3 = weight by both.  
 - -U --cluster_file : Specify the location of a cluster file to use with the cluster weight (-u --cluster_weight) option.  This is a 2-column file containing a genome ID and the cluster number it belongs to.  
 
+A couple example runs are shown below:
+
+```
+# 100 gene set model using kmers
+PATH/TO/buildModel.py -f PLFams_static/Klebsiella/fasta.100.0 -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
+
+# 100 gene set alignment model
+PATH/TO/buildModel.py -L PLFams_static/Klebsiella/ali.out.tab -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
+
+# 100 gene set model weighted by cluster SR distribution
+PATH/TO/buildModel.py -f PLFams_static/Klebsiella/fasta.100.0 -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -u 2 -U PLFams_static/Klebsiella/clades_use/247.clades
+```
+
 Note that, as stated above, there are other options to the script, but they are not used at all in this paper and some of them are still untested for accuracy or in some cases not yet implemented.  
 
 Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialize and writable or the script may fail to run!  
