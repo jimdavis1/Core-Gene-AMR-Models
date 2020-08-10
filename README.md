@@ -99,7 +99,7 @@ Also note that the training script uses the */dev/shm/* directory to store KMC r
 
 ## Scripts
 
-This directory contains the scripts required to process the raw alignments.  The main script to be used here is the *makeAlignments.py* script.  Note that the *makeMatrix.py* script is deprecated now since the *GenomicModelCreator* has this process built in.  
+This directory contains the scripts required to process the raw alignments.  The main scripts to be used here are the *makeAlignments.py* and *shuffleLabels.py* scripts.  Note that the *makeMatrix.py* script is deprecated now since the *GenomicModelCreator* has this process built in.  
 
 ### makeAlignments.py
 
@@ -109,7 +109,18 @@ This script is used to concatenate the alignments for each gene over each indivi
 3. Alignment index out: Order list containing the order of the features in the feature array.  It contains PLF and alignment index value for the given PLF.  
 4. File suffix: (*optional*) suffix of the files in the *Alignment fasta directory*.
 
+An example run can be seen below:
+
+```bash
+python PATH/TO/makeAlignments.py Nguyen_et_al_2020/Klebsiella/Kleb.raw.alis Nguyen_et_al_2020/Klebsiella/ali.out.tab Nguyen_et_al_2020/Klebsiella/ali.out.ind
+```
+
 ### shuffleLabels.py
 
-This script is used to shuffle the labels in a tabular file for the *buildModel.py* script in GenomicModelCreator.  It takes one option, the name of a tabular file to shuffle.  
+This script is used to shuffle the labels in a tabular file for the *buildModel.py* script in GenomicModelCreator.  It takes one option, the name of a tabular file to shuffle and outputs to stdout.  
 
+An example of this script is shown below.  
+
+```bash
+python PATH/TO/shuffleLabels.py Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab > tabular_file_shuffled
+```
