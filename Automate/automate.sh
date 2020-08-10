@@ -33,9 +33,9 @@ oDir=$(echo $1 | sed 's/\/$//g')
 
 if [ ! -d $oDir ]; then
 	mkdir $oDir
-else
-	rm -rf $oDir
-	mkdir $oDir
+# else
+	# rm -rf $oDir
+	# mkdir $oDir
 fi
 
 ###
@@ -43,12 +43,12 @@ fi
 ###
 
 echo "Downloading data..."
-cp ~/PLFams_static.tar.gz $oDir
-# curl [INSERT URL HERE!!!]
+# cp ~/PLFams_static.tar.gz $oDir
+curl ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz > $oDir/Nguyen_et_al_2020.tar.gz
 echo "Decompressing data..."
-tar -xzf $oDir/PLFams_static.tar.gz -C $oDir
+tar -xzf $oDir/Nguyen_et_al_2020.tar.gz -C $oDir
 
-RDIR=$oDir/PLFams_static
+RDIR=$oDir/Nguyen_et_al_2020
 
 ###
 # Make Model Directory
