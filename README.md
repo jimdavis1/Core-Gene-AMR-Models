@@ -36,7 +36,7 @@ Note that the directories containing fasta files may *not* contain the same set 
 Contains one script that can be used to automate the training of models, *automate.sh*.  There is a README.md in this directory as well to outline its use.  In summary:
 
 ```bash
-bash /pathtoautomate/automate.sh [output_dir] <threads>
+bash /PATH/TO/Automate/automate.sh [output_dir] <threads>
 ```
 
 This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz) and store it in the `output_dir`.  It will then go and train and compute model metrics for the following models for Staphylococcus (you substitute in other species by editing *all* of the *for loops*):
@@ -112,7 +112,7 @@ This script is used to concatenate the alignments for each gene over each indivi
 An example run can be seen below:
 
 ```bash
-python PATH/TO/makeAlignments.py Nguyen_et_al_2020/Klebsiella/Kleb.raw.alis Nguyen_et_al_2020/Klebsiella/ali.out.tab Nguyen_et_al_2020/Klebsiella/ali.out.ind
+python PATH/TO/scripts/makeAlignments.py Nguyen_et_al_2020/Klebsiella/Kleb.raw.alis Nguyen_et_al_2020/Klebsiella/ali.out.tab Nguyen_et_al_2020/Klebsiella/ali.out.ind
 ```
 
 ### shuffleLabels.py
@@ -122,5 +122,5 @@ This script is used to shuffle the labels in a tabular file for the *buildModel.
 An example of this script is shown below.  
 
 ```bash
-python PATH/TO/shuffleLabels.py Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab > tabular_file_shuffled
+python PATH/TO/scripts/shuffleLabels.py Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab > tabular_file_shuffled
 ```
