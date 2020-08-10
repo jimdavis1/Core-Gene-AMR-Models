@@ -46,7 +46,7 @@ This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org
 - Phylogeny models
 - Low 10 genes models
 
-If you have already downloaded the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 46, 47, and 49 to skip the downloading portion of the script.  
+If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to skip the downloading portion of the script.  
 
 In the event you run into an *out of memory* error of any sort, it's likely that the machine being used lacks the RAM to run a certain model.  
 
