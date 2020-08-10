@@ -23,7 +23,7 @@ There are a few directories within this github repo:
 
 ## Downloading Data
 
-The data for this repository is now available through the **!!!UPDATE Link When Avaialble!!!** [PATRIC FTP](http://patricbrc.org) **!!!UPDATE Link When Avaialble!!!**.  It comes as a tar-ball that is gzipped which can be opened up using the following bash command `tar -xzf PATH/TO/PLFams_static.tar.gz -C [output directory]`.  NOTE THAT `[output directory]` must exist prior to running the command.  If the `-C` option is not used, then it will extract to the working directory.  Once extracted there should be a *PLFams_static* directory inside of the `[output directory]`.  Inside there will be 4 directories for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  Their directory structures are very similar with the following:
+The data for this repository is now available through the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz).  It comes as a tar-ball that is gzipped which can be opened up using the following bash command `tar -xzf PATH/TO/Nguyen_et_al_2020.tar.gz -C [output directory]`.  NOTE THAT `[output directory]` must exist prior to running the command.  If the `-C` option is not used, then it will extract to the working directory.  Once extracted there should be a *Nguyen_et_al_2020* directory inside of the `[output directory]`.  Inside there will be 4 directories for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  Their directory structures are very similar with the following:
 - clades_use : the clades used to generate phylogeny-based models
 - fasta.X.Y : *X* represents the number of genes chosen for the gene set, *Y* represents the replicate of sampling (multiple replicates exist for gene sets of 100).  These are the same sets used in the paper.  There will be one fasta file per genome named using the convention genome_id.fasta.
 - fasta.low10 : Models were created using the 10 sets of 100 genes and the 10 genes of the lowest importance were then chosen.  These are those genes and corresponding fasta files per genome.  There will be one fasta file per genome named using the convention genome_id.fasta.
@@ -39,7 +39,7 @@ Contains one script that can be used to automate the training of models, *automa
 bash /pathtoautomate/automate.sh [output_dir] <threads>
 ```
 
-This script will download the data from the **!!!UPDATE Link When Avaialble!!!** [PATRIC FTP](http://patricbrc.org) **!!!UPDATE Link When Avaialble!!!** and store it in the output folder.  It will then go and train and compute model metrics for the following models for Staphylococcus (you substitute in other species by editing *all* of the *for loops*):
+This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz) and store it in the `output_dir`.  It will then go and train and compute model metrics for the following models for Staphylococcus (you substitute in other species by editing *all* of the *for loops*):
 - Alignment-based models
 - Gene set models
 - Randomized models
@@ -84,13 +84,13 @@ A couple example runs are shown below:
 
 ```
 # 100 gene set model using kmers
-PATH/TO/buildModel.py -f PLFams_static/Klebsiella/fasta.100.0 -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
+PATH/TO/buildModel.py -f Nguyen_et_al_2020/Klebsiella/fasta.100.0 -t Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
 
 # 100 gene set alignment model
-PATH/TO/buildModel.py -L PLFams_static/Klebsiella/ali.out.tab -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
+PATH/TO/buildModel.py -L Nguyen_et_al_2020/Klebsiella/ali.out.tab -t Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
 
 # 100 gene set model weighted by cluster SR distribution
-PATH/TO/buildModel.py -f PLFams_static/Klebsiella/fasta.100.0 -t PLFams_static/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -u 2 -U PLFams_static/Klebsiella/clades_use/247.clades
+PATH/TO/buildModel.py -f Nguyen_et_al_2020/Klebsiella/fasta.100.0 -t Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -u 2 -U Nguyen_et_al_2020/Klebsiella/clades_use/247.clades
 ```
 
 Note that, as stated above, there are other options to the script, but they are not used at all in this paper and some of them are still untested for accuracy or in some cases not yet implemented.  
