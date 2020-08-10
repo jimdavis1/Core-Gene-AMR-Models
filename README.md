@@ -82,7 +82,7 @@ This submodule is a repository designed as tool to allow users to train machine 
 
 A couple example runs are shown below:
 
-```
+```bash
 # 100 gene set model using kmers
 PATH/TO/buildModel.py -f Nguyen_et_al_2020/Klebsiella/fasta.100.0 -t Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab -T temp -o model_gset_100_0 -n 24 -d 16 -k 15 -P True -c True -J True -S AMRcls -w True
 
@@ -112,6 +112,7 @@ This script is used to concatenate the alignments for each gene over each indivi
 An example run can be seen below:
 
 ```bash
+# Create alignments from Klebsiella raw alignments
 python PATH/TO/scripts/makeAlignments.py Nguyen_et_al_2020/Klebsiella/Kleb.raw.alis Nguyen_et_al_2020/Klebsiella/ali.out.tab Nguyen_et_al_2020/Klebsiella/ali.out.ind
 ```
 
@@ -122,5 +123,6 @@ This script is used to shuffle the labels in a tabular file for the *buildModel.
 An example of this script is shown below.  
 
 ```bash
+# Shuffle labels of Klebisella S|R tabular file
 python PATH/TO/scripts/shuffleLabels.py Nguyen_et_al_2020/Klebsiella/Kleb.sir.filt.plf.tab > tabular_file_shuffled
 ```
