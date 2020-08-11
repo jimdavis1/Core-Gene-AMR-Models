@@ -39,12 +39,14 @@ Contains one script that can be used to automate the training of models, *automa
 bash /PATH/TO/Automate/automate.sh [output_dir] <threads>
 ```
 
-This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz) and store it in the `output_dir`.  It will then go and train and compute model metrics for the following models for Staphylococcus (you substitute in other species by editing *all* of the *for loops*):
+This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz) and store it in the `output_dir`.  It will then go and train and compute model metrics for the following models for Staphylococcus:
 - Alignment-based models
 - Gene set models
 - Randomized models
 - Phylogeny models
 - Low 10 genes models
+
+If you wish to run more than just Staphylococcus you can edit all the for loop headers on lines 78, 99, 120, 142, and 163, to be `for i in $(echo Klebsiella Mycobacterium Salmonella Staphylococcus); do` instead of `for i in $(echo Staphylococcus); do` or set up a subset of the list you wish to run.  Note that *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus* are the only 4 species that models can be built for.  
 
 If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to skip the downloading portion of the script.  
 
