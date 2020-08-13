@@ -22,7 +22,7 @@ There are a few directories within this github repo:
 
 ## Downloading Data
 
-The data for this repository is now available through the [PATRIC FTP](ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz).  It comes as a tar-ball that is gzipped which can be opened up using the following bash command `tar -xzf PATH/TO/Nguyen_et_al_2020.tar.gz -C [output directory]`.  NOTE THAT `[output directory]` must exist prior to running the command.  If the `-C` option is not used, then it will extract to the working directory.  Once extracted there should be a *Nguyen_et_al_2020* directory inside of the `[output directory]`.  Inside there will be 4 directories for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  Their directory structures are very similar with the following:
+The data for this repository is now available through the PATRIC FTP (ftp://ftp.patricbrc.org/datasets/), and downloading the Nguyen_et_al_2020.tar.gz archive.  It comes as a tar-ball that is gzipped which can be opened up using the following bash command `tar -xzf PATH/TO/Nguyen_et_al_2020.tar.gz -C [output directory]`.  NOTE THAT `[output directory]` must exist prior to running the command.  If the `-C` option is not used, then it will extract to the working directory.  Once extracted there should be a *Nguyen_et_al_2020* directory inside of the `[output directory]`.  Inside there will be 4 directories for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  Their directory structures are very similar with the following:
 - clades_use : the clades used to generate phylogeny-based models
 - fasta.X.Y : *X* represents the number of genes chosen for the gene set, *Y* represents the replicate of sampling (multiple replicates exist for gene sets of 100).  These are the same sets used in the paper.  There will be one fasta file per genome named using the convention genome_id.fasta.
 - fasta.low10 : Models were created using the 10 sets of 100 genes and the 10 genes of the lowest importance were then chosen.  These are those genes and corresponding fasta files per genome.  There will be one fasta file per genome named using the convention genome_id.fasta.
@@ -51,7 +51,7 @@ If you have already downloaded and decompressed the data, you can specify the pa
 
 In the event you run into an *out of memory* error of any sort, it's likely that the machine being used lacks the RAM to run a certain model.  
 
-Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialize and writable or the script may fail to run!  
+Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialized d writable or the script may fail to run!  
 
 ## Subtree-Analysis
 
