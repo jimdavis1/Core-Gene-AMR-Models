@@ -9,8 +9,8 @@ git submodule update
 ```
 
 Doing this will initialize the [GenomicModelCreator](https://github.com/Tinyman392/GenomicModelCreator/tree/ccd38f2a27feede0d7747ca8c2f69921ef1ef0a7) and [Subtree-Analysis](https://github.com/jimdavis1/Subtree-Analysis) submodules:
-- The GenomicModelCreator is used to train models and run model statistics/metrics using genomic data and metadata.  For the purposes of this repo, it's used to train models using alignments of 100 conserved genes for various species in a susceptible vs resistant format.  However, the GenomicModelCreator can do more than just that.  The GenomicModelCreator is still being updated and not all features are currently functional, although the functions specific to this repo are usable.   
-- The Subtree-Analysis is used to create and view trees that are based off of 100 core gene alignments.  It utilizes various libaries from the [PATRIC command line interface](https://github.com/PATRIC3/PATRIC-distribution/releases).  
+- The GenomicModelCreator is used to train models and run model statistics/metrics using genomic data and metadata.  For the purposes of this repo, it's used to train models from the Nguyen et al. study for various species in a susceptible vs resistant format.  However, the GenomicModelCreator can do more than just that.  The GenomicModelCreator is still under development, but the functions specific to this repo and the Nguyen et al. study are usable.   
+- The Subtree-Analysis is designed to demonstrate how subtrees were analyzed in the Nguyen et al. study.  It utilizes various libaries from the [PATRIC command line interface](https://github.com/PATRIC3/PATRIC-distribution/releases).  
 
 ## Repository Layout
 
