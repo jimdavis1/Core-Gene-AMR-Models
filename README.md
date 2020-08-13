@@ -47,26 +47,28 @@ This script will download the data from the [PATRIC FTP](ftp://ftp.patricbrc.org
 
 If you wish to run more than just Staphylococcus you can edit all the for loop headers on lines 78, 99, 120, 142, and 163, to be `for i in $(echo Klebsiella Mycobacterium Salmonella Staphylococcus); do` instead of `for i in $(echo Staphylococcus); do` or set up a subset of the list you wish to run.  Note that *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus* are the only 4 species that models can be built for.  
 
-If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to skip the downloading portion of the script.  
+The `automate.sh` script uses a curl command to download the the tarball from the PATRIC FTP.  If you encounter problems with this because of the system you are using, you should proceed by downloading the tarball as a separate step.
+
+If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to bypass the downloading step.  
 
 In the event you run into an *out of memory* error of any sort, it's likely that the machine being used lacks the RAM to run a certain model.  
 
-Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialized d writable or the script may fail to run!  
+Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialized and writable or the script may fail to run! The link for downloading KMC is in the Readme file for the Automate subdirectory. 
 
 ## Subtree-Analysis
 
-This submodule is a repository designed to aid the user in creating Phylogentic trees used for the publication related to this repository.  The README.md in the Subtree-Analysis repo will walk the user, step by step, though building various phylogenetic trees to create clades using various tip-distance cutoffs.  It requires the PATRIC command line interface (CLI) installed.  See the README for more info.
+This submodule is a repository designed to aid the user in recreating the subtrees that were used in the paper.  The README.md in the Subtree-Analysis repo will walk the user step by step though building clades using various tip-distance cutoffs.  It requires the PATRIC command line interface (CLI) to be installed.  See the README for more info.
 
 ## GenomeModelCreator
 
-This submodule is a repository designed as tool to allow users to train machine learning models on genomic and one-hot encoded data.  The *buildModel.py* script is the main driver.  It is designed as an all-in-one solution whose feature set surpasses the scope of the paper this repository is related to.  As such, there will be many more options available with the model-building tool than was used in this paper.  Additionally, some features for this tool are still being implemented, but aren't used in this paper.  The options that will be used for this paper are:
-- -f --fasta_dir : Used to specify the location of fasta files to do k-mer based models with.  Each fasta in this directory should be named *[genome_id].fasta*  **Note do not use the -L --alignment option when using the -f --fasta option!**
+This submodule is a repository designed as tool to allow users to train machine learning models on genomic and one-hot encoded data.  The *buildModel.py* script is the main driver.  It was designed as an all-in-one solution with features that surpasses the scope of the paper.  As such, there will be many more options available with the model-building tool than was used in this paper.  Additionally, some features for this tool are still being implemented, but aren't used in this paper.  The options that will be used for this paper are:
+- -f --fasta_dir : Used to specify the location of fasta files for building k-mer based models.  Each fasta file in this directory should be named *[genome_id].fasta*  **Note do not use the -L --alignment option when using the -f --fasta option!**
 - -L --alignment : Used to specify the location of an alignment file.  The file should be a 2-column file containing a genome ID and a one-hot-encoded alignment for that genome.  **Note do not use the -f --fasta_dir option when using the -L --alignment option!**
 - -t --tabular : Used to specify a tabular file which contains the predicted metadata (last column) as well as the antibiotic that was tested.  Each line should contain 3 columns: genome_id, antibiotic, label (label can be either 1, 2, 4 for S, I, R respectively or a MIC value).  
 - -T --temp_dir : Used to specify the temporary directory to store temporary files.  **Note that this will be cleared out by removing all files in the directory at script start, so make sure it is empty.**  It defaults to *temp"
 - -o --out_dir : Used to specify the output directory for the model.  **Note that this too will be cleared out by removing all files in the directory at script start, so make sure it is empty.** It defaults to *model*.  
 - -n --threads : Used to specify the number of threads to use.  Don't go higher than what is available on your machine.  If on a Linux-based system, `cat /proc/cpuinfo/` will list out the CPUs available to use.  `tail -100 /proc/cpuinfo/` will list out the end of the file to allow you to see how many there are.  These are 0-indexed, so the number of available CPUs is 1 higher than the highest CPU number. 
-- -d --depth : Used to specify the maximum tree depth for the model.  Defaults to 4.  **Note this paper varied the depth, but used 16.**
+- -d --depth : Used to specify the maximum tree depth for the model.  Defaults to 4.  **Note this paper varied the depth, but often used 16.**
 - -k --kmer_size : Used to specify the k-mer size to use.  Defaults to 10.  **Note this paper uses 15.  It should be noted that a k-mer size of 10 produced approximately the same results as a k-mer size of 15.  If you run into memory issues, changing this value to 10, or even 8, may help out a lot.**
 - -P --presence_absence: Set this to *True* if the k-mer size is greater than or equal to 12.  This will help reduce the memory footprint by defining k-mer counts as binary (presence vs absence).  The default for this is *False*.  
 - -i --individual : Used to specify whether or not to run each antibiotic as an individual model.  The default for this is *False*.
@@ -76,7 +78,7 @@ This submodule is a repository designed as tool to allow users to train machine 
 - -c --classification : Set this to *True* for SIR models as those are treated as a classification model.  MIC models should have this set to *False*.  The default for this is *False*.  
 - -J --noI : Set this to *False* as it will remove the intermediate class from the model which was done for this paper.
 - -S --compute_stats : Set this to either *AMRcls* or *AMRreg* for SIR and MIC models, respectively. 
-- -M --model_type : Specify the type of model to run if you're not using XGBoost.  *RandomForest* was also used in this paper.  **Note that SciKit-Learn can very memory intensive and will multiply your memory footprint by the number of threads being used (on models that support multi-threading)!**  SVMs do *not* support multithreading and will run very slowly.    
+- -M --model_type : Specify the type of model to run if you're not using XGBoost.  *RandomForest* was also used in this paper.  **Note that SciKit-Learn can be very memory intensive and will multiply your memory footprint by the number of threads being used (on models that support multi-threading)!**  SVMs do *not* support multithreading and will run very slowly.    
 - -w --weighted : Set this to *True* for SIR models and *False* for MIC models, however for clade weighted models, do not specify this and use the -u option instead (listed below).  This weights the samples based on class distribution.  
 - -u --cluster_weight : Specify whether to weight each cluster by a cluster weight.  0 = no cluster weight, 1 = weight by size, 2 = weight by SIR cluster dist, 3 = weight by both.  
 - -U --cluster_file : Specify the location of a cluster file to use with the cluster weight (-u --cluster_weight) option.  This is a 2-column file containing a genome ID and the cluster number it belongs to.  
@@ -96,7 +98,7 @@ PATH/TO/buildModel.py -f Nguyen_et_al_2020/Klebsiella/fasta.100.0 -t Nguyen_et_a
 
 Note that, as stated above, there are other options to the script, but they are not used at all in this paper and some of them are still untested for accuracy or in some cases not yet implemented.  
 
-Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialize and writable or the script may fail to run!  
+Also note that the training script uses the */dev/shm/* directory to store KMC runs.  This directory should be initialized and writable or the script may fail to run!  
 
 ## Scripts
 
