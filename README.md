@@ -49,7 +49,14 @@ If you wish to run more than just Staphylococcus you can edit all the for loop h
 
 The `automate.sh` script uses a curl command to download the the tarball from the PATRIC FTP.  If you encounter problems with this because of the system you are using, you should proceed by downloading the tarball as a separate step.
 
-If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to bypass the downloading step.  
+If you have already downloaded and decompressed the data, you can specify the parent directory of the downloaded data directory as the output directory for the *automate.sh* script and comment out lines 51-54 to bypass the downloading step.  The lines should have the following code in it:
+
+```bash
+echo "Downloading data..."
+curl ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz > $oDir/Nguyen_et_al_2020.tar.gz
+echo "Decompressing data..."
+tar -xzf $oDir/Nguyen_et_al_2020.tar.gz -C $oDir
+``` 
 
 In the event you run into an *out of memory* error of any sort, it's likely that the machine being used lacks the RAM to run a certain model.  
 

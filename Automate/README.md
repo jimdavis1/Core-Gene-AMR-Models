@@ -20,41 +20,37 @@ Once everything is set up, running the script is simple.  In bash, you run the f
 bash /pathtoautomate/automate.sh [output_dir] <threads>
 ```
 
-*output_dir* is the output directory in which you want all the output placed.  Note this directory will be cleared out using *rm -rf* before the script runs!  *threads* is an optional argument where you can specify the number of threads to use.  This defaults to 1.
+*output_dir* is the output directory in which you want all the output placed.  *threads* is an optional argument where you can specify the number of threads to use.  This defaults to 1.
 
-Once you've run this, the script will automate it's way through building 4 alignment-based models for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  
+Once you've run this, the script will automate it's way through downloading the data from the FTP using a `curl` command and storing it in the output directory.  If you've already downloaded and extracted the data, specify the parent directory of the Nguyen_et_al_2020 directory as the output and comment out lines 51-54 which download and extract the data out, the lines are spelled out below:
 
-Note that the output directory does *not* need to reside within the repo and the bash script can be called from outside the repo as well.  
+```bash
+echo "Downloading data..."
+curl ftp://ftp.patricbrc.org/datasets/Nguyen_et_al_2020.tar.gz > $oDir/Nguyen_et_al_2020.tar.gz
+echo "Decompressing data..."
+tar -xzf $oDir/Nguyen_et_al_2020.tar.gz -C $oDir
+```
 
-## Memory Requirements
+For more information regarding what is in the downloaded data see the main repo's README file.  
 
-These XGBoost models for alignments still require lots of RAM despite only utilizing non-redudant alignments on 100 genes.  Below is the recommended amount of memory (RAM) for each of the models:
+Then it will begin building multiple types of models for Staphylococcus (*Klebsiella*, *Mycobacterium*, and *Salmonella* can also be added, however).  These models will be stored in the *models* directory that will be created inside the specified output directory. The following types of models will be built:
+- Alignment-based models
+- Clade-weighted models (no weight, weight by clade size, weight by S/R distribution in clade, weight by both)
+- Gene sets (10 replicates of 100 genes, 1 replicate of 25, 50, 250, and 500 genes)
+- Shuffled labels (10 replicates of 100 genes)
 
-|Model           |Memory|
-|----------------|------|
-|*Klebsiella*    |64 GB |
-|*Mycobacterium* |128 GB|
-|*Salmonella*    |128 GB|
-|*Staphylococcus*|64 GB |
-
-These are very loose minimum requirements.  In the event you run into an *out of memory* error, it normally means you didn't have enough RAM.  
-
-If you wish to skip any given species from running (due to RAM/time constraints) you can do so by editing line 35 in the *automate.sh* script to remove the species you wish to not run.  
-
-## Basic Logic of Script
-
-The script starts by checking for the output directory and clearing it out before running.  
-
-For each species, the script will run the *makeAlignments.py* script located in the *../Scripts/* directory and then use that as input into the *buildModel.py* script in the *../GenomicModelCreator/* directory.  
+Note that the output directory does *not* need to reside within the repo and the bash script can be called from outside the repo as well. 
 
 ## Script Output
 
-Inside the output directory of the script there will be a some directories.  One directory per species that was run as well as a temporary directory that is reused with each model.  Within each species' directory will be the following:
-- ali.ord : alignment order of the alignment tabular file by the index within the alignment.  
-- ali.tab : tabular layout for the one hot alignments.  First column is the genome ID and the second column is the one hot alignment for that genome.
-- model_ali : directory containing the trained model and any pieces of the model metadata.  
+Inside the output directory of the script there will be a some directories:
+- *models* Directory: Contains 1 directory per species which hold the respective models for each species.  
+- *Nguyen_et_al_2020* Directory: The raw data used to run the models.  This raw data matches that which was used in the paper.  
+- *Nguyen_et_al_2020.tar.gz* File: Tarball which was downloaded and extracted to the *Nguyen_et_al_2020* directory.  
+- *rand.tab* File: Generated on the fly, random shuffling of the last run shuffled labels model.  
+- *temp* Directory: A directory used to store temporary data while building models.  This can be cleared.
 
-The *model_ali* directory will contain the following:
+The *models* directory will contain 4 directories (one for each species) which each contain multiple models which have the following within their directory structure:
 - all : directory containing the 5 of 10 folds run.  Each fold contains a *.pred*, *.train_hist.txt*, *.true*, *.tree*, and *pkl* file representing the predicted labels for the test set, training history (merror for train, validation, and test), true values for the testing set, text representation of the tree ensemble, and the model itself in pkl format.  Additionally, statistic files of metrics also are included *confusion_matrix.tab*, *f1.tab*, *raw_acc.tab*, and *VMEME.tab*.  *model.params* is included for the XGBoost parameters used in the model.
 - model.attrOrder : attribute order for the features of the model.
 - model.genomes.list : list of genomes used to train the model.
