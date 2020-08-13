@@ -15,9 +15,9 @@ Doing this will initialize the [GenomicModelCreator](https://github.com/Tinyman3
 ## Repository Layout
 
 There are a few directories within this github repo:
-- Automate: Contains the script to automate the model training on alignments for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus*.  
+- Automate: Contains the script to automate the model training for *Klebsiella*, *Mycobacterium*, *Salmonella*, and *Staphylococcus* data sets.  
 - GenomicModelCreator: Submodule that is used to train the models.  Please read its README for more information.
-- Subtree-Analysis: Submodule that is used to build trees based on conserved gene alignments.  Please read its README for more information.  
+- Subtree-Analysis: Submodule that is used to analyze trees based on conserved gene alignments.  Please read its README for more information.  
 - Scripts: Contains scripts specific for creating one-hot alignments *makeAlignments.py*.  The *makeMatrix.py* script can be used to make a matrix, however, the GenomicModelCreator does this on its own as a first step, so this script is deprecated.  
 - *Species* Directories: These directories contain the raw alignments and susceptible/resistant calls.  
 
